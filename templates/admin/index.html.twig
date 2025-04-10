@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Administration</h1>
+    
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Liste des utilisateurs</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Rôles</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.firstname }} {{ user.lastname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles|join(', ') }}</td>
+                        <td>
+                            {% if user.isActive %}
+                                <span class="badge bg-success">Actif</span>
+                            {% else %}
+                                <span class="badge bg-danger">Inactif</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_admin_user_edit', {'id': user.id}) }}" class="btn btn-sm btn-primary">Éditer</a>
+                            <a href="{{ path('app_admin_user_toggle_active', {'id': user.id}) }}" class="btn btn-sm {% if user.isActive %}btn-danger{% else %}btn-success{% endif %}">
+                                {% if user.isActive %}Désactiver{% else %}Activer{% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Retour au tableau de bord</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Mon profil</h1>
+    
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Informations personnelles</h3>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tr>
+                    <th>Prénom :</th>
+                    <td>{{ user.firstname }}</td>
+                </tr>
+                <tr>
+                    <th>Nom :</th>
+                    <td>{{ user.lastname }}</td>
+                </tr>
+                <tr>
+                    <th>Email :</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Rôles :</th>
+                    <td>{{ user.roles|join(', ') }}</td>
+                </tr>
+                <tr>
+                    <th>Statut :</th>
+                    <td>
+                        {% if user.isActive %}
+                            <span class="badge bg-success">Actif</span>
+                        {% else %}
+                            <span class="badge bg-danger">Inactif</span>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            
+            <div class="mt-3">
+                <a href="{{ path('app_user_profile_edit') }}" class="btn btn-primary">Modifier mon profil</a>
+                <a href="{{ path('app_dashboard') }}" class="btn btn-secondary">Retour au tableau de bord</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

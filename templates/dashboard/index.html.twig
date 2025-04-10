@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Tableau de bord</h1>
+    
+    <div class="card mt-4">
+        <div class="card-header">
+            <h3>Bienvenue {{ user.firstname }} {{ user.lastname }}</h3>
+        </div>
+        <div class="card-body">
+            <p>Email : {{ user.email }}</p>
+            <p>Rôles : {{ user.roles|join(', ') }}</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
+    </div>
+</div>
+{% endblock %}
