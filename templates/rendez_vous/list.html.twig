@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RendezVousController!{% endblock %}
+
+{% block body %}
+    <h1>RendezVous</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Client</th>
+                <th>Prestataire</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rendez_vou in rendez_vous %}
+                <tr>
+                    <td>{{ rendez_vou.id }}</td>
+                    <td>{{ rendez_vou.date ? rendez_vou.date|date('Y-m-d') : '' }}</td>
+                    <td>{{ rendez_vou.heure ? rendez_vou.heure|date('H:i') : '' }}</td>
+                    <td>{{ rendez_vou.client.nom }}</td>
+                    <td>{{ rendez_vou.prestataire.nom }}</td>
+                    <td><a href="{{ path('rendez_vous_show', {'id': rendez_vou.id}) }}">show</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('rendez_vous_new') }}">Create new</a>
+    <a href="{{ path('rendez_vous_index') }}">Back to list</a>
+{% endblock %}
