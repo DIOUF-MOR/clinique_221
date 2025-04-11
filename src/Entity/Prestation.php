@@ -7,13 +7,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PrestationRepository::class)]
-class Prestation
+class Prestation extends RendezVous
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+   
     #[ORM\Column(length: 50)]
     private ?string $type = null;
 
@@ -26,19 +22,12 @@ class Prestation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateRealisation = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $statut = null;
-
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     private ?ResponsablePrestation $responsablePrestation = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     private ?DossierMedical $dossierMedical = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getType(): ?string
     {
@@ -88,17 +77,6 @@ class Prestation
         return $this;
     }
 
-    public function getStatut(): ?string
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(string $statut): static
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
 
     public function getResponsablePrestation(): ?ResponsablePrestation
     {

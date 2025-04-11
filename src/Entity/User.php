@@ -10,9 +10,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ORM\InheritanceType('JOINED')]
-#[ORM\DiscriminatorColumn(name: 'discr', type: 'string')]
 #[ORM\DiscriminatorMap(['secretaire' => 'Secretaire', 'medecin' => 'Medecin', 'patient' => 'Patient', 'responsable_prestation' => 'ResponsablePrestation'])]
-#[ORM\Table(name: 'user')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

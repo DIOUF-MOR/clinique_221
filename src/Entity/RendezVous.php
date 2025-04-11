@@ -7,6 +7,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RendezVousRepository::class)]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['id'])]
+#[ORM\InheritanceType('JOINED')]
+#[ORM\DiscriminatorMap(['prestation' => 'Prestation', 'consultation' => 'Consultation'])]
+
 class RendezVous
 {
     #[ORM\Id]
@@ -15,7 +19,7 @@ class RendezVous
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateHeure = null;
+    private ?\DateTimeInterface $datePrevue = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateCreation = null;
@@ -34,14 +38,14 @@ class RendezVous
         return $this->id;
     }
 
-    public function getDateHeure(): ?\DateTimeInterface
+    public function getDatePrevue(): ?\DateTimeInterface
     {
-        return $this->dateHeure;
+        return $this->datePrevue;
     }
 
-    public function setDateHeure(\DateTimeInterface $dateHeure): static
+    public function setDatePrevue(\DateTimeInterface $datePrevue): static
     {
-        $this->dateHeure = $dateHeure;
+        $this->datePrevue = $datePrevue;
 
         return $this;
     }
